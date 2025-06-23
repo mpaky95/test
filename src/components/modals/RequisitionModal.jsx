@@ -396,7 +396,7 @@ const RequisitionModal = ({ requisition, onClose, onSuccess }) => {
                     onChange={handleChange}
                   >
                     <option value="">Select Department</option>
-                    {departments.map(dept => (
+                    {(departments || []).map(dept => (
                       <option key={dept.id} value={dept.name}>
                         {dept.name}
                       </option>
@@ -449,7 +449,7 @@ const RequisitionModal = ({ requisition, onClose, onSuccess }) => {
                     value={formData.workflow_id}
                     onChange={handleChange}
                   >
-                    {workflows.map(workflow => (
+                    {(workflows || []).map(workflow => (
                       <option key={workflow.id} value={workflow.id}>
                         {workflow.name}
                       </option>
@@ -502,7 +502,7 @@ const RequisitionModal = ({ requisition, onClose, onSuccess }) => {
               </div>
 
               <div className="space-y-4">
-                {items.map((item, index) => {
+                {(items || []).map((item, index) => {
                   const stockStatus = getStockStatus(item);
                   
                   return (
@@ -531,7 +531,7 @@ const RequisitionModal = ({ requisition, onClose, onSuccess }) => {
                             onChange={(e) => handleItemChange(index, 'inventory_id', e.target.value)}
                           >
                             <option value="">Select from inventory (optional)</option>
-                            {inventory.map(invItem => (
+                            {(inventory || []).map(invItem => (
                               <option key={invItem.id} value={invItem.id}>
                                 {formatInventoryOption(invItem)}
                               </option>
@@ -605,7 +605,7 @@ const RequisitionModal = ({ requisition, onClose, onSuccess }) => {
                             onChange={(e) => handleItemChange(index, 'unit_id', e.target.value)}
                           >
                             <option value="">Select unit</option>
-                            {units.map(unit => (
+                            {(units || []).map(unit => (
                               <option key={unit.id} value={unit.id}>
                                 {unit.name} ({unit.abbreviation})
                               </option>
@@ -701,7 +701,7 @@ const RequisitionModal = ({ requisition, onClose, onSuccess }) => {
               </div>
 
               {/* Purchase Order Notice */}
-              {items.some(item => item.needs_purchase) && (
+              {(items || []).some(item => item.needs_purchase) && (
                 <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <div className="flex items-start">
                     <AlertTriangle className="h-5 w-5 text-yellow-600 mr-2 mt-0.5" />

@@ -85,7 +85,8 @@ const ManagementModal = ({ categories, units, locations, suppliers, onClose, onS
   };
 
   const renderCategories = () => {
-    const groupedCategories = categories.reduce((acc, category) => {
+    const safeCategories = categories || [];
+    const groupedCategories = safeCategories.reduce((acc, category) => {
       if (!category.parent_id) {
         if (!acc[category.id]) {
           acc[category.id] = { parent: category, children: [] };
@@ -190,7 +191,7 @@ const ManagementModal = ({ categories, units, locations, suppliers, onClose, onS
           </div>
         ))}
 
-        {categories.length === 0 && (
+        {safeCategories.length === 0 && (
           <div className="text-center py-12">
             <FolderTree className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900">No categories</h3>
@@ -205,7 +206,8 @@ const ManagementModal = ({ categories, units, locations, suppliers, onClose, onS
 
   const renderUnits = () => {
     // Group units by type
-    const groupedUnits = units.reduce((acc, unit) => {
+    const safeUnits = units || [];
+    const groupedUnits = safeUnits.reduce((acc, unit) => {
       const type = unit.unit_type || 'general';
       if (!acc[type]) {
         acc[type] = [];
@@ -263,7 +265,7 @@ const ManagementModal = ({ categories, units, locations, suppliers, onClose, onS
 
   const renderLocations = () => (
     <div className="space-y-3">
-      {locations.map((location) => (
+      {(locations || []).map((location) => (
         <div key={location.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
           <div className="flex items-start">
             <MapPin className="h-5 w-5 text-primary-500 mr-3 mt-1" />
@@ -300,7 +302,7 @@ const ManagementModal = ({ categories, units, locations, suppliers, onClose, onS
 
   const renderSuppliers = () => (
     <div className="space-y-3">
-      {suppliers.map((supplier) => (
+      {(suppliers || []).map((supplier) => (
         <div key={supplier.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
           <div className="flex items-start">
             <Truck className="h-5 w-5 text-primary-500 mr-3 mt-1" />
