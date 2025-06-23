@@ -38,6 +38,9 @@ const InventoryTable = ({
     return null;
   };
 
+  // Ensure items is always an array
+  const safeItems = Array.isArray(items) ? items : [];
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -85,7 +88,7 @@ const InventoryTable = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {items.map((item) => (
+          {safeItems.map((item) => (
             <tr key={item.id} className="hover:bg-gray-50">
               <td className="px-6 py-4">
                 <div>
@@ -170,7 +173,7 @@ const InventoryTable = ({
         </tbody>
       </table>
 
-      {items.length === 0 && (
+      {safeItems.length === 0 && (
         <div className="text-center py-12">
           <Package className="mx-auto h-12 w-12 text-gray-400" />
           <h3 className="mt-2 text-sm font-medium text-gray-900">No items found</h3>

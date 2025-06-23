@@ -82,6 +82,9 @@ const RequisitionsTable = ({
     }
   };
 
+  // Ensure requisitions is always an array
+  const safeRequisitions = Array.isArray(requisitions) ? requisitions : [];
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -108,7 +111,7 @@ const RequisitionsTable = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {requisitions.map((requisition) => (
+          {safeRequisitions.map((requisition) => (
             <tr key={requisition.id} className="hover:bg-gray-50">
               <td className="px-6 py-4">
                 <div>
@@ -212,7 +215,7 @@ const RequisitionsTable = ({
         </tbody>
       </table>
 
-      {requisitions.length === 0 && (
+      {safeRequisitions.length === 0 && (
         <div className="text-center py-12">
           <FileText className="mx-auto h-12 w-12 text-gray-400" />
           <h3 className="mt-2 text-sm font-medium text-gray-900">No requisitions found</h3>
